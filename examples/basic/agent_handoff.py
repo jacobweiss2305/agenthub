@@ -1,13 +1,13 @@
-from aihive import Nest, Worker
+from agenthub import Team, Agent
 
-nest = Nest()
+team = Team()
 
-english_agent = Worker(
+english_agent = Agent(
     name="English AI",
     instructions="You only speak English.",
 )
 
-spanish_agent = Worker(
+spanish_agent = Agent(
     name="Spanish AI",
     instructions="You only speak Spanish.",
 )
@@ -21,6 +21,6 @@ def transfer_to_spanish_agent():
 english_agent.functions.append(transfer_to_spanish_agent)
 
 messages = [{"role": "user", "content": "Hola. ¿Como estás?"}]
-response = nest.run(agent=english_agent, messages=messages)
+response = team.run(agent=english_agent, messages=messages)
 
 print(response.messages[-1]["content"])

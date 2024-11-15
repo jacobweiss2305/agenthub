@@ -1,6 +1,6 @@
-from aihive import Hive, AI
+from agenthub import Team, Agent
 
-swarm = Hive()
+team = Team()
 
 
 def instructions(context_variables):
@@ -15,7 +15,7 @@ def print_account_details(context_variables: dict):
     return "Success"
 
 
-customer_support_agent = AI(
+customer_support_agent = Agent(
     name="Customer Support AI",
     instructions=instructions,
     functions=[print_account_details],
@@ -23,7 +23,7 @@ customer_support_agent = AI(
 
 context_variables = {"name": "James", "user_id": 123}
 
-response = swarm.run(
+response = team.run(
     messages=[{"role": "user", "content": "Hi!"}],
     agent=customer_support_agent,
     context_variables=context_variables,
@@ -31,7 +31,7 @@ response = swarm.run(
 
 print(response.messages[-1]["content"])
 
-response = swarm.run(
+response = team.run(
     messages=[{"role": "user", "content": "Print my account details!"}],
     agent=customer_support_agent,
     context_variables=context_variables,

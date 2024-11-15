@@ -1,4 +1,4 @@
-# Welcome to the Hive 🐝
+# Welcome to the AgentHub 🤖
 
 A general-purpose multi-agent orchestration framework for building agentic software.
 
@@ -7,30 +7,30 @@ A general-purpose multi-agent orchestration framework for building agentic softw
 Requires Python 3.10+
 
 ```shell
-pip install aihive
+pip install agenthub
 ```
 
 or
 
 ```shell
-pip install aihive
+pip install agenthub
 ```
 
 ## Usage
 
 ```python
-from aihive import Nest, Worker
+from agenthub import Team, Agent
 
-nest = Nest()
+team = Team()
 
-worker_agent = Worker(
+writer_agent = Agent(
     name="Sophisticated writer",
     instructions="You write about honey bees.",
 )
 
-response = nest.run(
-    agent=worker_agent,
-    messages=[{"role": "user", "content": "Create a motivational haiku to inspire beekeepers."}],
+response = team.run(
+    agent=writer_agent,
+    messages=[{"role": "user", "content": "Create a motivational haiku."}],
 )
 
 print(response.messages[-1]["content"])

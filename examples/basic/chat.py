@@ -1,5 +1,6 @@
-from aihive import Nest, Worker
-nest = Nest()
+from agenthub import Team, Agent
+
+team = Team()
 
 def calculator(operation: str, a: float, b: float) -> float:
     """
@@ -34,14 +35,14 @@ def calculator(operation: str, a: float, b: float) -> float:
 def search_internet(query: str) -> str:
     return "This is a test"
 
-worker_agent = Worker(
+writer_agent = Agent(
     name="Sophisticated writer",
     instructions="an agent that uses tools to answer questions",
     functions=[calculator],
 )
 
-response = nest.run(
-    agent=worker_agent,
+response = team.run(
+    agent=writer_agent,
     messages=[{"role": "user", "content": "What is 100 * 100?"}],
     debug=True,
 )

@@ -1,6 +1,6 @@
 import json
 
-from aihive import Colony
+from agenthub import Team
 
 
 def process_and_print_streaming_response(response):
@@ -58,20 +58,20 @@ def pretty_print_messages(messages) -> None:
 
 
 def run_demo_loop(
-    starting_bee, context_variables=None, stream=False, debug=False
+    starting_agent, context_variables=None, stream=False, debug=False
 ) -> None:
-    client = Colony()
-    print("Starting Colony CLI 🐝")
+    client = Team()
+    print("Starting AgentHub CLI 🤖")
 
     messages = []
-    bee = starting_bee
+    agent = starting_agent
 
     while True:
         user_input = input("\033[90mUser\033[0m: ")
         messages.append({"role": "user", "content": user_input})
 
         response = client.run(
-            bee=bee,
+            agent=agent,
             messages=messages,
             context_variables=context_variables or {},
             stream=stream,
@@ -84,4 +84,4 @@ def run_demo_loop(
             pretty_print_messages(response.messages)
 
         messages.extend(response.messages)
-        bee = response.bee
+        agent = response.agent

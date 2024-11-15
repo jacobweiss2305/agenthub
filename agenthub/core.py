@@ -11,8 +11,8 @@ from openai import OpenAI
 # Local imports
 from .util import function_to_json, debug_print, merge_chunk
 from .types import (
-    Worker,
-    WorkerFunction,
+    Agent,
+    AgentFunction,
     ChatCompletionMessage,
     ChatCompletionMessageToolCall,
     Function,
@@ -23,7 +23,7 @@ from .types import (
 __CTX_VARS_NAME__ = "context_variables"
 
 
-class Nest:
+class Team:
     def __init__(self, client=None):
         if not client:
             client = OpenAI()
@@ -31,7 +31,7 @@ class Nest:
 
     def get_chat_completion(
         self,
-        agent: Worker,
+        agent: Agent,
         history: List,
         context_variables: dict,
         model_override: str,
@@ -74,7 +74,7 @@ class Nest:
             case Result() as result:
                 return result
 
-            case Worker() as agent:
+            case Agent() as agent:
                 return Result(
                     value=json.dumps({"assistant": agent.name}),
                     agent=agent,
@@ -90,7 +90,7 @@ class Nest:
     def handle_tool_calls(
         self,
         tool_calls: List[ChatCompletionMessageToolCall],
-        functions: List[WorkerFunction],
+        functions: List[AgentFunction],
         context_variables: dict,
         debug: bool,
     ) -> Response:
@@ -139,7 +139,7 @@ class Nest:
 
     def run_and_stream(
         self,
-        agent: Worker,
+        agent: Agent,
         messages: List,
         context_variables: dict = {},
         model_override: str = None,
@@ -231,7 +231,7 @@ class Nest:
 
     def run(
         self,
-        agent: Worker,
+        agent: Agent,
         messages: List,
         context_variables: dict = {},
         model_override: str = None,

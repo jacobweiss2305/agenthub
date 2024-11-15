@@ -1,8 +1,8 @@
-from aihive import Nest, AI
+from agenthub import Team, Agent
 
-nest = Nest()
+team = Team()
 
-my_agent = AI(
+my_agent = Agent(
     name="AI agent",
     instructions="You are a helpful agent.",
 )
@@ -19,8 +19,7 @@ agent = my_agent
 while True:
     user_input = input("> ")
     messages.append({"role": "user", "content": user_input})
-
-    response = nest.run(agent=agent, messages=messages)
+    response = team.run(agent=agent, messages=messages)
     messages = response.messages
     agent = response.agent
     pretty_print_messages(messages)
