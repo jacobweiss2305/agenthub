@@ -1,5 +1,5 @@
 [project]
-name = "agenthub"
+name = "aiagenthub"
 version = "0.0.1"
 description = "A general-purpose multi-agent orchestration framework."
 requires-python = ">=3.7"
