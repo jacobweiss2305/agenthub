@@ -1,4 +1,4 @@
-# Development Guide for ghostrade
+# Development Guide for aibeehive
 
 ## Publishing Process
 
@@ -47,13 +47,13 @@ git tag v0.0.3-test
 git push origin v0.0.3-test
 
 # Wait for GitHub Actions to complete
-# Check: https://github.com/jacobweiss2305/ghostrade/actions
+# Check: https://github.com/jacobweiss2305/aibeehive/actions
 
 # Verify on TestPyPI
-# Check: https://test.pypi.org/project/ghostrade/
+# Check: https://test.pypi.org/project/aibeehive/
 
 # Test installation
-pip install -i https://test.pypi.org/simple/ ghostrade==0.0.3
+pip install -i https://test.pypi.org/simple/ aibeehive==0.0.3
 ```
 
 4. **Production Release (PyPI)**
@@ -63,13 +63,13 @@ git tag v0.0.3
 git push origin v0.0.3
 
 # Wait for GitHub Actions to complete
-# Check: https://github.com/jacobweiss2305/ghostrade/actions
+# Check: https://github.com/jacobweiss2305/aibeehive/actions
 
 # Verify on PyPI
-# Check: https://pypi.org/project/ghostrade/
+# Check: https://pypi.org/project/aibeehive/
 
 # Test installation
-pip install ghostrade==0.0.3
+pip install aibeehive==0.0.3
 ```
 
 ### Troubleshooting

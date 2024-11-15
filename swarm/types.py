@@ -8,34 +8,34 @@ from typing import List, Callable, Union, Optional
 # Third-party imports
 from pydantic import BaseModel
 
-BeeFunction = Callable[[], Union[str, "Bee", dict]]
+AIFunction = Callable[[], Union[str, "AI", dict]]
 
 
-class Bee(BaseModel):
-    name: str = "Bee"
+class AI(BaseModel):
+    name: str = "AI agent"
     model: str = "gpt-4o"
-    instructions: Union[str, Callable[[], str]] = "You are a helpful bee."
-    functions: List[BeeFunction] = []
+    instructions: Union[str, Callable[[], str]] = "You are a helpful AI agent."
+    functions: List[AIFunction] = []
     tool_choice: str = None
     parallel_tool_calls: bool = True
 
 
 class Response(BaseModel):
     messages: List = []
-    bee: Optional[Bee] = None
+    agent: Optional[AI] = None
     context_variables: dict = {}
 
 
 class Result(BaseModel):
     """
-    Encapsulates the possible return values for an bee function.
+    Encapsulates the possible return values for an AI agent function.
 
     Attributes:
         value (str): The result value as a string.
-        bee (Bee): The bee instance, if applicable.
+        agent (AI): The AI agent instance, if applicable.
         context_variables (dict): A dictionary of context variables.
     """
 
     value: str = ""
-    bee: Optional[Bee] = None
+    agent: Optional[AI] = None
     context_variables: dict = {}

@@ -1,10 +1,10 @@
-from swarm import Swarm, Bee
+from swarm import Swarm, AI
 
 client = Swarm()
 
-my_bee = Bee(
-    name="Bee",
-    instructions="You are a helpful bee.",
+my_agent = AI(
+    name="AI",
+    instructions="You are a helpful agent.",
 )
 
 
@@ -16,12 +16,12 @@ def pretty_print_messages(messages):
 
 
 messages = []
-bee = my_bee
+agent = my_agent
 while True:
     user_input = input("> ")
     messages.append({"role": "user", "content": user_input})
 
-    response = client.run(bee=bee, messages=messages)
+    response = client.run(agent=agent, messages=messages)
     messages = response.messages
-    bee = response.bee
+    agent = response.agent
     pretty_print_messages(messages)

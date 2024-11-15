@@ -1,17 +1,17 @@
-from swarm import Swarm, Bee
+from swarm import Swarm, AI
 
 swarm = Swarm()
 
 def get_weather(location) -> str:
     return "{'temp':67, 'unit':'F'}"
 
-weather_bee = Bee(
-    name="Weather Bee",
-    instructions="You are a helpful bee.",
+weather_agent = AI(
+    name="Weather AI",
+    instructions="You are a helpful agent.",
     functions=[get_weather],
 )
 
 messages = [{"role": "user", "content": "What's the weather in NYC?"}]
 
-response = swarm.run(bee=weather_bee, messages=messages)
+response = swarm.run(agent=weather_agent, messages=messages)
 print(response.messages[-1]["content"])
