@@ -1,11 +1,11 @@
 [project]
 name = "aihive"
-version = "0.0.12"
+version = "0.0.13"
 description = "A general-purpose multi-agent orchestration framework."
 requires-python = ">=3.7"
 readme = "README.md"
 authors = [
-    { name: "Jacob Weiss", email: "jaweiss2305@gmail.com" }
+    { name = "Jacob Weiss", email = "jaweiss2305@gmail.com" }
 ]
 
 dependencies = [
