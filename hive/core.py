@@ -11,8 +11,8 @@ from openai import OpenAI
 # Local imports
 from .util import function_to_json, debug_print, merge_chunk
 from .types import (
-    AI,
-    AIFunction,
+    Worker,
+    WorkerFunction,
     ChatCompletionMessage,
     ChatCompletionMessageToolCall,
     Function,
@@ -23,7 +23,7 @@ from .types import (
 __CTX_VARS_NAME__ = "context_variables"
 
 
-class Swarm:
+class Nest:
     def __init__(self, client=None):
         if not client:
             client = OpenAI()
@@ -31,7 +31,7 @@ class Swarm:
 
     def get_chat_completion(
         self,
-        agent: AI,
+        agent: Worker,
         history: List,
         context_variables: dict,
         model_override: str,
@@ -73,7 +73,7 @@ class Swarm:
             case Result() as result:
                 return result
 
-            case AI() as agent:
+            case Worker() as agent:
                 return Result(
                     value=json.dumps({"assistant": agent.name}),
                     agent=agent,
@@ -89,7 +89,7 @@ class Swarm:
     def handle_tool_calls(
         self,
         tool_calls: List[ChatCompletionMessageToolCall],
-        functions: List[AIFunction],
+        functions: List[WorkerFunction],
         context_variables: dict,
         debug: bool,
     ) -> Response:
@@ -138,7 +138,7 @@ class Swarm:
 
     def run_and_stream(
         self,
-        agent: AI,
+        agent: Worker,
         messages: List,
         context_variables: dict = {},
         model_override: str = None,
@@ -230,7 +230,7 @@ class Swarm:
 
     def run(
         self,
-        agent: AI,
+        agent: Worker,
         messages: List,
         context_variables: dict = {},
         model_override: str = None,

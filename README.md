@@ -1,6 +1,6 @@
-# AI Hive
+# Welcome to the Hive 🐝
 
-A general-purpose multi-agent orchestration framework.
+A general-purpose multi-agent orchestration framework for building agentic software.
 
 ## Install
 
@@ -19,36 +19,27 @@ pip install aihive
 ## Usage
 
 ```python
-from aihive import Swarm, AI
+from hive import Nest, Worker
 
-swarm = Swarm()
+nest = Nest()
 
-def ask_queen_agent():
-    return queen_agent
-
-worker_agent = AI(
-    name="Worker AI",
-    instructions="You are a helpful worker agent.",
-    functions=[transfer_to_queen_agent],
+worker_agent = Worker(
+    name="Sophisticated writer",
+    instructions="You write about honey bees.",
 )
 
-queen_agent = AI(
-    name="Queen AI",
-    instructions="Guide your worker agents to be helpful.",
-)
-
-response = swarm.run(
+response = nest.run(
     agent=worker_agent,
-    messages=[{"role": "user", "content": "Create a motivational haiku to inspire the worker agents."}],
+    messages=[{"role": "user", "content": "Create a motivational haiku to inspire beekeepers."}],
 )
 
 print(response.messages[-1]["content"])
 ```
 
 ```
-Hope glimmers brightly,
-New paths converge gracefully,
-What can I assist?
+Fields of golden light,  
+Bees dance through blossoms with grace—  
+Sweet rewards await.
 ```
 
 ## Acknowledgments

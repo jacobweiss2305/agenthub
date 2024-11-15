@@ -1,13 +1,13 @@
-from swarm import Swarm, AI
+from hive import Nest, Worker
 
-swarm = Swarm()
+nest = Nest()
 
-agent = AI(
+agent = Worker(
     name="AI agent",
     instructions="You are a helpful AI assistant.",
 )
 
 messages = [{"role": "user", "content": "Hi!"}]
-response = swarm.run(agent=agent, messages=messages)
+response = nest.run(agent=agent, messages=messages)
 
 print(response.messages[-1]["content"])

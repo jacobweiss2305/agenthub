@@ -8,21 +8,20 @@ from typing import List, Callable, Union, Optional
 # Third-party imports
 from pydantic import BaseModel
 
-AIFunction = Callable[[], Union[str, "AI", dict]]
+WorkerFunction = Callable[[], Union[str, "Worker", dict]]
 
-
-class AI(BaseModel):
+class Worker(BaseModel):
     name: str = "AI agent"
     model: str = "gpt-4o"
     instructions: Union[str, Callable[[], str]] = "You are a helpful AI agent."
-    functions: List[AIFunction] = []
+    functions: List[WorkerFunction] = []
     tool_choice: str = None
     parallel_tool_calls: bool = True
 
 
 class Response(BaseModel):
     messages: List = []
-    agent: Optional[AI] = None
+    agent: Optional[Worker] = None
     context_variables: dict = {}
 
 
@@ -37,5 +36,5 @@ class Result(BaseModel):
     """
 
     value: str = ""
-    agent: Optional[AI] = None
+    agent: Optional[Worker] = None
     context_variables: dict = {}

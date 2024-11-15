@@ -6,9 +6,9 @@ if (-not ($env:VIRTUAL_ENV)) {
 }
 
 Write-Host "Formatting code with black..."
-black swarm/
+black hive/
 black examples/
-isort swarm/
+isort hive/
 isort examples/
 
 if ($LASTEXITCODE -eq 0) {

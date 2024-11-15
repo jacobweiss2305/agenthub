@@ -1,6 +1,6 @@
-from swarm import Swarm, AI
+from hive import Hive, AI
 
-swarm = Swarm()
+swarm = Hive()
 
 def get_weather(location) -> str:
     return "{'temp':67, 'unit':'F'}"

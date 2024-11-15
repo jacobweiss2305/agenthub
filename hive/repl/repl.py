@@ -1,6 +1,6 @@
 import json
 
-from swarm import Swarm
+from hive import Colony
 
 
 def process_and_print_streaming_response(response):
@@ -60,8 +60,8 @@ def pretty_print_messages(messages) -> None:
 def run_demo_loop(
     starting_bee, context_variables=None, stream=False, debug=False
 ) -> None:
-    client = Swarm()
-    print("Starting Swarm CLI 🐝")
+    client = Colony()
+    print("Starting Colony CLI 🐝")
 
     messages = []
     bee = starting_bee

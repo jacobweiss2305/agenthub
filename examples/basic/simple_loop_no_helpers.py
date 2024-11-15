@@ -1,12 +1,11 @@
-from swarm import Swarm, AI
+from hive import Nest, AI
 
-client = Swarm()
+nest = Nest()
 
 my_agent = AI(
-    name="AI",
+    name="AI agent",
     instructions="You are a helpful agent.",
 )
-
 
 def pretty_print_messages(messages):
     for message in messages:
@@ -21,7 +20,7 @@ while True:
     user_input = input("> ")
     messages.append({"role": "user", "content": user_input})
 
-    response = client.run(agent=agent, messages=messages)
+    response = nest.run(agent=agent, messages=messages)
     messages = response.messages
     agent = response.agent
     pretty_print_messages(messages)
