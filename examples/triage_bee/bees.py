@@ -1,4 +1,4 @@
-from swarm import Agent
+from swarm import Bee
 
 
 def process_refund(item_id, reason="NOT SPECIFIED"):
@@ -13,34 +13,34 @@ def apply_discount():
     return "Applied discount of 11%"
 
 
-triage_agent = Agent(
-    name="Triage Agent",
-    instructions="Determine which agent is best suited to handle the user's request, and transfer the conversation to that agent.",
+triage_bee = Bee(
+    name="Triage Bee",
+    instructions="Determine which bee is best suited to handle the user's request, and transfer the conversation to that bee.",
 )
-sales_agent = Agent(
-    name="Sales Agent",
+sales_bee = Bee(
+    name="Sales Bee",
     instructions="Be super enthusiastic about selling bees.",
 )
-refunds_agent = Agent(
-    name="Refunds Agent",
+refunds_bee = Bee(
+    name="Refunds Bee",
     instructions="Help the user with a refund. If the reason is that it was too expensive, offer the user a refund code. If they insist, then process the refund.",
     functions=[process_refund, apply_discount],
 )
 
 
 def transfer_back_to_triage():
-    """Call this function if a user is asking about a topic that is not handled by the current agent."""
-    return triage_agent
+    """Call this function if a user is asking about a topic that is not handled by the current bee."""
+    return triage_bee
 
 
 def transfer_to_sales():
-    return sales_agent
+    return sales_bee
 
 
 def transfer_to_refunds():
-    return refunds_agent
+    return refunds_bee
 
 
-triage_agent.functions = [transfer_to_sales, transfer_to_refunds]
-sales_agent.functions.append(transfer_back_to_triage)
-refunds_agent.functions.append(transfer_back_to_triage)
+triage_bee.functions = [transfer_to_sales, transfer_to_refunds]
+sales_bee.functions.append(transfer_back_to_triage)
+refunds_bee.functions.append(transfer_back_to_triage)

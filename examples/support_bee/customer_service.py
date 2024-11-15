@@ -3,7 +3,7 @@ import re
 import qdrant_client
 from openai import OpenAI
 
-from swarm import Agent
+from swarm import Bee
 from swarm.repl import run_demo_loop
 
 # Initialize connections
@@ -15,6 +15,9 @@ EMBEDDING_MODEL = "text-embedding-3-large"
 
 # Set qdrant collection
 collection_name = "help_center"
+
+
+# TODO: Make this work
 
 
 def query_qdrant(query, collection_name, vector_name="article", top_k=5):
@@ -38,7 +41,6 @@ def query_qdrant(query, collection_name, vector_name="article", top_k=5):
 
 
 def query_docs(query):
-    """Query the knowledge base for relevant articles."""
     print(f"Searching knowledge base with query: {query}")
     query_results = query_qdrant(query, collection_name=collection_name)
     output = []
@@ -64,32 +66,33 @@ def query_docs(query):
 
 
 def send_email(email_address, message):
-    """Send an email to the user."""
     response = f"Email sent to: {email_address} with message: {message}"
     return {"response": response}
 
 
 def submit_ticket(description):
-    """Submit a ticket for the user."""
     return {"response": f"Ticket created for {description}"}
 
 
-def transfer_to_help_center():
-    """Transfer the user to the help center agent."""
-    return help_center_agent
-
-
-user_interface_agent = Agent(
-    name="User Interface Agent",
-    instructions="You are a user interface agent that handles all interactions with the user. Call this agent for general questions and when no other agent is correct for the user query.",
-    functions=[transfer_to_help_center],
-)
-
-help_center_agent = Agent(
-    name="Help Center Agent",
-    instructions="You are an OpenAI help center agent who deals with questions about OpenAI products, such as GPT models, DALL-E, Whisper, etc.",
+user_interface_bee = Bee(
+    name="User Interface Bee",
+    instructions="You are a user interface bee that handles all interactions with the user. Call this bee for general questions and when no other bee is correct for the user query.",
     functions=[query_docs, submit_ticket, send_email],
 )
 
+help_center_bee = Bee(
+    name="Help Center Bee",
+    instructions="You are an OpenAI help center bee who deals with questions about OpenAI products, such as GPT models, DALL-E, Whisper, etc.",
+    functions=[query_docs, submit_ticket, send_email],
+)
+
+
+def transfer_to_help_center():
+    """Transfer the user to the help center bee."""
+    return help_center_bee
+
+
+user_interface_bee.functions.append(transfer_to_help_center)
+
 if __name__ == "__main__":
-    run_demo_loop(user_interface_agent)
+    run_demo_loop(user_interface_bee)

@@ -1,13 +1,13 @@
-from swarm import Swarm, Agent
+from swarm import Swarm, Bee
 
-client = Swarm()
+swarm = Swarm()
 
-agent = Agent(
-    name="Agent",
-    instructions="You are a helpful agent.",
+bee = Bee(
+    name="Bee",
+    instructions="You are a helpful bee.",
 )
 
 messages = [{"role": "user", "content": "Hi!"}]
-response = client.run(agent=agent, messages=messages)
+response = swarm.run(bee=bee, messages=messages)
 
 print(response.messages[-1]["content"])

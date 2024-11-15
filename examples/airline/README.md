@@ -1,15 +1,15 @@
 # Airline customer service
 
-This example demonstrates a multi-agent setup for handling different customer service requests in an airline context using the Swarm framework. The agents can triage requests, handle flight modifications, cancellations, and lost baggage cases.
+This example demonstrates a multi-bee setup for handling different customer service requests in an airline context using the Swarm framework. The bees can triage requests, handle flight modifications, cancellations, and lost baggage cases.
 This example uses the helper function `run_demo_loop`, which allows us to create an interactive Swarm session.
 
-## Agents
+## Bees
 
-1. **Triage Agent**: Determines the type of request and transfers to the appropriate agent.
-2. **Flight Modification Agent**: Handles requests related to flight modifications, further triaging them into:
-   - **Flight Cancel Agent**: Manages flight cancellation requests.
-   - **Flight Change Agent**: Manages flight change requests.
-3. **Lost Baggage Agent**: Handles lost baggage inquiries.
+1. **Triage Bee**: Determines the type of request and transfers to the appropriate bee.
+2. **Flight Modification Bee**: Handles requests related to flight modifications, further triaging them into:
+   - **Flight Cancel Bee**: Manages flight cancellation requests.
+   - **Flight Change Bee**: Manages flight change requests.
+3. **Lost Baggage Bee**: Handles lost baggage inquiries.
 
 ## Setup
 

@@ -1,11 +1,11 @@
-from swarm import Swarm, Agent
+from swarm import Swarm, Bee
 
-client = Swarm()
+swarm = Swarm()
 
 
 def instructions(context_variables):
     name = context_variables.get("name", "User")
-    return f"You are a helpful agent. Greet the user by name ({name})."
+    return f"You are a helpful bee. Greet the user by name ({name})."
 
 
 def print_account_details(context_variables: dict):
@@ -15,24 +15,26 @@ def print_account_details(context_variables: dict):
     return "Success"
 
 
-agent = Agent(
-    name="Agent",
+customer_support_bee = Bee(
+    name="Customer Support Bee",
     instructions=instructions,
     functions=[print_account_details],
 )
 
 context_variables = {"name": "James", "user_id": 123}
 
-response = client.run(
+response = swarm.run(
     messages=[{"role": "user", "content": "Hi!"}],
-    agent=agent,
+    bee=customer_support_bee,
     context_variables=context_variables,
 )
+
 print(response.messages[-1]["content"])
 
-response = client.run(
+response = swarm.run(
     messages=[{"role": "user", "content": "Print my account details!"}],
-    agent=agent,
+    bee=customer_support_bee,
     context_variables=context_variables,
 )
+
 print(response.messages[-1]["content"])

@@ -1,14 +1,14 @@
 from swarm import Swarm
-from agents import weather_agent
+from bees import weather_bee
 import pytest
 
 client = Swarm()
 
 
-def run_and_get_tool_calls(agent, query):
+def run_and_get_tool_calls(bee, query):
     message = {"role": "user", "content": query}
     response = client.run(
-        agent=agent,
+        bee=bee,
         messages=[message],
         execute_tools=False,
     )
@@ -24,7 +24,7 @@ def run_and_get_tool_calls(agent, query):
     ],
 )
 def test_calls_weather_when_asked(query):
-    tool_calls = run_and_get_tool_calls(weather_agent, query)
+    tool_calls = run_and_get_tool_calls(weather_bee, query)
 
     assert len(tool_calls) == 1
     assert tool_calls[0]["function"]["name"] == "get_weather"
@@ -39,6 +39,6 @@ def test_calls_weather_when_asked(query):
     ],
 )
 def test_does_not_call_weather_when_not_asked(query):
-    tool_calls = run_and_get_tool_calls(weather_agent, query)
+    tool_calls = run_and_get_tool_calls(weather_bee, query)
 
     assert not tool_calls

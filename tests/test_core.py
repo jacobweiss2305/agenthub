@@ -1,5 +1,5 @@
 import pytest
-from swarm import Swarm, Agent
+from swarm import Swarm, Bee
 from tests.mock_client import MockOpenAIClient, create_mock_response
 from unittest.mock import Mock
 import json
@@ -17,11 +17,11 @@ def mock_openai_client():
 
 
 def test_run_with_simple_message(mock_openai_client: MockOpenAIClient):
-    agent = Agent()
+    bee = Bee()
     # set up client and run
     client = Swarm(client=mock_openai_client)
     messages = [{"role": "user", "content": "Hello, how are you?"}]
-    response = client.run(agent=agent, messages=messages)
+    response = client.run(bee=bee, messages=messages)
 
     # assert response content
     assert response.messages[-1]["role"] == "assistant"
@@ -38,7 +38,7 @@ def test_tool_call(mock_openai_client: MockOpenAIClient):
         get_weather_mock(location=location)
         return "It's sunny today."
 
-    agent = Agent(name="Test Agent", functions=[get_weather])
+    bee = Bee(name="Test Bee", functions=[get_weather])
     messages = [
         {"role": "user", "content": "What's the weather like in San Francisco?"}
     ]
@@ -60,7 +60,7 @@ def test_tool_call(mock_openai_client: MockOpenAIClient):
 
     # set up client and run
     client = Swarm(client=mock_openai_client)
-    response = client.run(agent=agent, messages=messages)
+    response = client.run(bee=bee, messages=messages)
 
     get_weather_mock.assert_called_once_with(location=expected_location)
     assert response.messages[-1]["role"] == "assistant"
@@ -77,7 +77,7 @@ def test_execute_tools_false(mock_openai_client: MockOpenAIClient):
         get_weather_mock(location=location)
         return "It's sunny today."
 
-    agent = Agent(name="Test Agent", functions=[get_weather])
+    bee = Bee(name="Test Bee", functions=[get_weather])
     messages = [
         {"role": "user", "content": "What's the weather like in San Francisco?"}
     ]
@@ -99,7 +99,7 @@ def test_execute_tools_false(mock_openai_client: MockOpenAIClient):
 
     # set up client and run
     client = Swarm(client=mock_openai_client)
-    response = client.run(agent=agent, messages=messages, execute_tools=False)
+    response = client.run(bee=bee, messages=messages, execute_tools=False)
     print(response)
 
     # assert function not called
@@ -116,18 +116,18 @@ def test_execute_tools_false(mock_openai_client: MockOpenAIClient):
 
 
 def test_handoff(mock_openai_client: MockOpenAIClient):
-    def transfer_to_agent2():
-        return agent2
+    def transfer_to_bee2():
+        return bee2
 
-    agent1 = Agent(name="Test Agent 1", functions=[transfer_to_agent2])
-    agent2 = Agent(name="Test Agent 2")
+    bee1 = Bee(name="Test Bee 1", functions=[transfer_to_bee2])
+    bee2 = Bee(name="Test Bee 2")
 
     # set mock to return a response that triggers the handoff
     mock_openai_client.set_sequential_responses(
         [
             create_mock_response(
                 message={"role": "assistant", "content": ""},
-                function_calls=[{"name": "transfer_to_agent2"}],
+                function_calls=[{"name": "transfer_to_bee2"}],
             ),
             create_mock_response(
                 {"role": "assistant", "content": DEFAULT_RESPONSE_CONTENT}
@@ -137,9 +137,9 @@ def test_handoff(mock_openai_client: MockOpenAIClient):
 
     # set up client and run
     client = Swarm(client=mock_openai_client)
-    messages = [{"role": "user", "content": "I want to talk to agent 2"}]
-    response = client.run(agent=agent1, messages=messages)
+    messages = [{"role": "user", "content": "I want to talk to bee 2"}]
+    response = client.run(bee=bee1, messages=messages)
 
-    assert response.agent == agent2
+    assert response.bee == bee2
     assert response.messages[-1]["role"] == "assistant"
     assert response.messages[-1]["content"] == DEFAULT_RESPONSE_CONTENT

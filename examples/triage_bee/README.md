@@ -1,11 +1,11 @@
-# Triage agent
+# Triage bee
 
-This example is a Swarm containing a triage agent, which takes in user inputs and chooses whether to respond directly, or triage the request
-to a sales or refunds agent.
+This example is a Swarm containing a triage bee, which takes in user inputs and chooses whether to respond directly, or triage the request
+to a sales or refunds bee.
 
 ## Setup
 
-To run the triage agent Swarm:
+To run the triage bee Swarm:
 
 1. Run
 

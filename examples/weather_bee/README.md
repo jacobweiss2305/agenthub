@@ -1,10 +1,10 @@
-# Weather agent
+# Weather bee
 
-This example is a weather agent demonstrating function calling with a single agent. The agent has tools to get the weather of a particular city, and send an email.
+This example is a weather bee demonstrating function calling with a single bee. The bee has tools to get the weather of a particular city, and send an email.
 
 ## Setup
 
-To run the weather agent Swarm:
+To run the weather bee Swarm:
 
 1. Run
 
