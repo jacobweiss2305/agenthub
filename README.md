@@ -1,6 +1,6 @@
-# AI AI Hive
+# AI Hive
 
-A general-purpose framework for orchestrating LLM workflows (forked from OpenAI's Swarm).
+A general-purpose multi-agent orchestration framework.
 
 ## Install
 
