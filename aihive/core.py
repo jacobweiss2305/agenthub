@@ -48,6 +48,7 @@ class Nest:
         debug_print(debug, "Getting chat completion for...:", messages)
 
         tools = [function_to_json(f) for f in agent.functions]
+        debug_print(debug, f"Tools: {tools}")
         # hide context_variables from model
         for tool in tools:
             params = tool["function"]["parameters"]

@@ -19,7 +19,7 @@ pip install aihive
 ## Usage
 
 ```python
-from hive import Nest, Worker
+from aihive import Nest, Worker
 
 nest = Nest()
 

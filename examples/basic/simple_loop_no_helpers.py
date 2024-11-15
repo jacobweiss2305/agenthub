@@ -1,4 +1,4 @@
-from hive import Nest, AI
+from aihive import Nest, AI
 
 nest = Nest()
 

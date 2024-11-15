@@ -1,4 +1,4 @@
-from hive import Hive, AI
+from aihive import Hive, AI
 
 swarm = Hive()
 

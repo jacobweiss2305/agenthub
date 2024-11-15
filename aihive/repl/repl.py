@@ -1,6 +1,6 @@
 import json
 
-from hive import Colony
+from aihive import Colony
 
 
 def process_and_print_streaming_response(response):

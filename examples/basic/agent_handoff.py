@@ -1,4 +1,4 @@
-from hive import Nest, Worker
+from aihive import Nest, Worker
 
 nest = Nest()
 
