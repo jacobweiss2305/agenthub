@@ -30,4 +30,4 @@ include = ["agenthub*"]
 where = ["."]
 
 [tool.setuptools.package-data]
-agenthub-core = ["py.typed"]
+agenthub = ["py.typed"]
