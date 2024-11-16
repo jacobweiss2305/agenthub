@@ -1,0 +1,60 @@
+name: Publish Packages
+
+on:
+  push:
+    tags:
+      - 'core-v*'
+      - 'openai-v*'
+      - 'claude-v*'
+
+jobs:
+  determine-package:
+    runs-on: ubuntu-latest
+    outputs:
+      package: ${{ steps.set-package.outputs.package }}
+    steps:
+      - id: set-package
+        run: |
+          TAG_NAME="${{ github.ref_name }}"
+          if [[ $TAG_NAME =~ ^([^-]+)-v ]]; then
+            PACKAGE="${BASH_REMATCH[1]}"
+            echo "package=$PACKAGE" >> $GITHUB_OUTPUT
+          else
+            echo "Invalid tag format. Expected: <package>-v<version>"
+            exit 1
+          fi
+
+  publish:
+    needs: determine-package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Verify package exists
+        run: |
+          if [ ! -d "packages/${{ needs.determine-package.outputs.package }}" ]; then
+            echo "Package directory packages/${{ needs.determine-package.outputs.package }} does not exist"
+            exit 1
+          fi
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+      
+      - name: Build package
+        working-directory: packages/${{ needs.determine-package.outputs.package }}
+        run: python -m build
+      
+      - name: Publish to PyPI
+        if: success()
+        working-directory: packages/${{ needs.determine-package.outputs.package }}
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: twine upload dist/*
