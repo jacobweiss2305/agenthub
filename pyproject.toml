@@ -1,5 +1,5 @@
 [project]
-name = "aiagenthub"
+name = "agenthub-core"
 version = "0.0.1"
 description = "A general-purpose multi-agent orchestration framework."
 requires-python = ">=3.7"
@@ -30,4 +30,4 @@ include = ["agenthub*"]
 where = ["."]
 
 [tool.setuptools.package-data]
-agenthub = ["py.typed"]
+agenthub-core = ["py.typed"]
