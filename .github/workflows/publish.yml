@@ -5,7 +5,7 @@ on:
     tags:
       - 'core-v*'
       - 'openai-v*'
-      - 'claude-v*'
+      - 'anthropic-v*'
 
 jobs:
   determine-package:
